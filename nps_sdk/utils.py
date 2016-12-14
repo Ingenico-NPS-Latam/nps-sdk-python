@@ -2,10 +2,10 @@ import collections
 import hashlib
 import requests
 import suds.transport as transport
-from nps import services
-from nps.constants import sdk
-from nps import Configuration
-from nps.conf import sanititize_struc
+from nps_sdk import services
+from nps_sdk.constants import sdk
+from nps_sdk import Configuration
+from nps_sdk.conf import sanititize_struc
 from suds.plugin import MessagePlugin
 import logging
 import re

@@ -1,11 +1,11 @@
-from nps.configuration import Configuration
-from nps import utils
+from nps_sdk.configuration import Configuration
+from nps_sdk import utils
 from requests.exceptions import ReadTimeout, ConnectTimeout
-from nps.utils import RequestsTransport, LogPlugin, MaskedLogPlugin
-from nps.errors import ApiException
+from nps_sdk.utils import RequestsTransport, LogPlugin, MaskedLogPlugin
+from nps_sdk.errors import ApiException
 from suds import client
 import logging
-from nps.file_adapter import FileAdapter
+from nps_sdk.file_adapter import FileAdapter
 import requests
 from suds.cache import NoCache
 from requests.auth import HTTPProxyAuth
@@ -45,10 +45,7 @@ class SoapClient(object):
             s.verify = Configuration.certificate
 
         t = RequestsTransport(s, timeout=Configuration.timeout)
-        if Configuration.certificate is not None:
-            self._client = client.Client(Configuration.get_wsdl().strip(), transport=t, plugins=plugings, cache=NoCache())
-        else:
-            self._client = client.Client(Configuration.get_wsdl().strip(), plugins=plugings, transport=t)
+        self._client = client.Client(Configuration.get_wsdl().strip(), plugins=plugings, transport=t, cache=NoCache())
 
     def _soap_call(self, service, params):
         try:

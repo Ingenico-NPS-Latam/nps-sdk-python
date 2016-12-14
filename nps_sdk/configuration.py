@@ -1,5 +1,5 @@
-from nps import constants
-from nps import errors
+from nps_sdk import constants
+from nps_sdk import errors
 import logging
 
 class Configuration(object):

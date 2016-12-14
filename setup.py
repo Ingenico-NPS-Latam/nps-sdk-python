@@ -1,9 +1,9 @@
-version = '0.3.9'
+version = '0.4'
 
 from setuptools import setup, find_packages
 
 setup(
-  name = 'npssdk',
+  name = 'nps_sdk',
   packages = find_packages(),
   version = version,
   description = 'A Python SDK for Ingenico ePayments - NPS LatAm Services',
@@ -24,7 +24,7 @@ setup(
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Software Development :: Libraries :: Python Modules"],
   install_requires=['suds-jurko==0.6', 'requests==2.9.1'],
-  package_data={ 'nps': ['wsdl/staging.wsdl',
+  package_data={ 'nps_sdk': ['wsdl/staging.wsdl',
                          'wsdl/sandbox.wsdl',
                          'wsdl/production.wsdl',
                          'wsdl/development.wsdl'] }

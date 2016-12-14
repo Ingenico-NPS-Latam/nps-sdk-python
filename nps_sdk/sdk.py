@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from nps.soapClient import SoapClient
-from nps import services
+from nps_sdk.soap_client import SoapClient
+from nps_sdk import services
 
 
-class NpsSDK(SoapClient):
+class Nps(SoapClient):
 
     def pay_online_2p(self, params):
         resp = self._soap_call(services.PAY_ONLINE_2P, params)
