@@ -1,7 +1,5 @@
 import collections
 import hashlib
-from suds.transport import Reply
-from suds.transport.http import HttpAuthenticated
 import requests
 import suds.transport as transport
 from nps import services

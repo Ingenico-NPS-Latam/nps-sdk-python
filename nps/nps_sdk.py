@@ -37,6 +37,10 @@ class NpsSDK(SoapClient):
         resp = self._soap_call(services.BANK_PAYMENT_3P, params)
         return resp
 
+    def bank_payment_2p(self, params):
+        resp = self._soap_call(services.BANK_PAYMENT_2P, params)
+        return resp
+
     def cash_payment_3p(self, params):
         resp = self._soap_call(services.CASH_PAYMENT_3P, params)
         return resp
@@ -73,4 +77,66 @@ class NpsSDK(SoapClient):
         resp = self._soap_call(services.GET_IIN_DETAILS, params)
         return resp
 
+    def create_payment_method(self, params):
+        resp = self._soap_call(services.CREATE_PAYMENT_METHOD, params)
+        return resp
 
+    def create_payment_method_from_payment(self, params):
+        resp = self._soap_call(services.CREATE_PAYMENT_METHOD_FROM_PAYMENT, params)
+        return resp
+
+    def retrieve_payment_method(self, params):
+        resp = self._soap_call(services.RETRIEVE_PAYMENT_METHOD, params)
+        return resp
+
+    def update_payment_method(self, params):
+        resp = self._soap_call(services.UPDATE_PAYMENT_METHOD, params)
+        return resp
+
+    def delete_payment_method(self, params):
+        resp = self._soap_call(services.DELETE_PAYMENT_METHOD, params)
+        return resp
+
+    def create_customer(self, params):
+        resp = self._soap_call(services.CREATE_CUSTOMER, params)
+        return resp
+
+    def retrieve_customer(self, params):
+        resp = self._soap_call(services.RETRIEVE_CUSTOMER, params)
+        return resp
+
+    def update_customer(self, params):
+        resp = self._soap_call(services.UPDATE_CUSTOMER, params)
+        return resp
+
+    def delete_customer(self, params):
+        resp = self._soap_call(services.DELETE_CUSTOMER, params)
+        return resp
+
+    def recache_payment_method_token(self, params):
+        resp = self._soap_call(services.RECACHE_PAYMENT_METHOD_TOKEN, params)
+        return resp
+
+    def create_payment_method_token(self, params):
+        resp = self._soap_call(services.CREATE_PAYMENT_METHOD_TOKEN, params)
+        return resp
+
+    def retrieve_payment_method_token(self, params):
+        resp = self._soap_call(services.RETRIEVE_PAYMENT_METHOD_TOKEN, params)
+        return resp
+
+    def create_client_session(self, params):
+        resp = self._soap_call(services.CREATE_CLIENT_SESSION, params)
+        return resp
+
+    def get_installments_options(self, params):
+        resp = self._soap_call(services.GET_INSTALLMENTS_OPTIONS, params)
+        return resp
+
+    def split_pay_online_2p(self, params):
+        resp = self._soap_call(services.SPLIT_PAY_ONLINE_2P, params)
+        return resp
+
+    def split_authorize_2p(self, params):
+        resp = self._soap_call(services.SPLIT_AUTHORIZE_2P, params)
+        return resp

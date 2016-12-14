@@ -1,6 +1,5 @@
 from nps import constants
 from nps import errors
-import os
 import logging
 
 class Configuration(object):
@@ -15,12 +14,12 @@ class Configuration(object):
                   **kwargs):
         Configuration.environment = environment
         Configuration.secret_key = secret_key
-        Configuration.certificate = os.environ.get('REQUESTS_CERT_NPS')
-        Configuration.c_key = os.environ.get('REQUESTS_CERT_KEY')
         Configuration.debug = debug
         Configuration.timeout = timeout
         Configuration.cert_verify_peer = None
         Configuration.log_level = log_level
+        Configuration.certificate = kwargs.get('cert')
+        Configuration.c_key = kwargs.get('key_cert')
         Configuration.sanitize = kwargs.get('sanitize')
         Configuration.log_file = kwargs.get('log_file')
         Configuration.proxy_url = kwargs.get('proxy_url')

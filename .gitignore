@@ -1,0 +1,7 @@
+.idea
+dist/
+build
+npssdk.egg-info/
+npsx.egg-info/
+examples.py
+nps.egg-info

@@ -1,14 +1,31 @@
-from distutils.core import setup
+version = '0.3.9'
+
+from setuptools import setup, find_packages
+
 setup(
-  name = 'nps',
-  packages = ['nps'], # this must be the same as the name above
-  version = '0.1.',
+  name = 'npssdk',
+  packages = find_packages(),
+  version = version,
   description = 'A Python SDK for Ingenico ePayments - NPS LatAm Services',
   author = 'Gustavo Diaz',
   author_email = 'gustavo.diaz@ingenico.com',
-  url = 'https://github.com/Ingenico-NPS-Latam/nps-sdk-python', # use the URL to the github repo
-  download_url = 'https://github.com/Ingenico-NPS-Latam/nps-sdk-python/tarball/0.1', # I'll explain this in a second
-  keywords = ['ingenico', 'payments', 'nps', 'nps-sdk'], # arbitrary keywords
-  classifiers = [],
-  install_requires=["suds-jurko=0.6"]
+  url = 'https://github.com/Ingenico-NPS-Latam/nps-sdk-python',
+  keywords = ['ingenico', 'payments', 'npssdk', 'nps-sdk'],
+  classifiers = [
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: Implementation :: PyPy",
+        "Topic :: Software Development :: Libraries :: Python Modules"],
+  install_requires=['suds-jurko==0.6', 'requests==2.9.1'],
+  package_data={ 'nps': ['wsdl/staging.wsdl',
+                         'wsdl/sandbox.wsdl',
+                         'wsdl/production.wsdl',
+                         'wsdl/development.wsdl'] }
 )
