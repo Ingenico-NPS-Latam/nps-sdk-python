@@ -1,0 +1,22 @@
+Metadata-Version: 1.1
+Name: nps-sdk
+Version: 0.1.3
+Summary: A Python SDK for Ingenico ePayments - NPS LatAm Services
+Home-page: https://github.com/Ingenico-NPS-Latam/nps-sdk-python
+Author: Gustavo Diaz
+Author-email: gustavo.diaz@ingenico.com
+License: UNKNOWN
+Description: UNKNOWN
+Keywords: ingenico,payments,npssdk,nps-sdk
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
