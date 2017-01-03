@@ -41,7 +41,7 @@ class SoapClient(object):
 
         if Configuration.certificate and Configuration.c_key:
             s.cert=(Configuration.certificate, Configuration.c_key)
-        elif Configuration.certificate:
+        else:
             s.verify = Configuration.certificate
 
         t = RequestsTransport(s, timeout=Configuration.timeout)

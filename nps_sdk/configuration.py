@@ -18,7 +18,7 @@ class Configuration(object):
         Configuration.timeout = timeout
         Configuration.cert_verify_peer = None
         Configuration.log_level = log_level
-        Configuration.certificate = kwargs.get('cert')
+        Configuration.certificate = kwargs.get('cert', False)
         Configuration.c_key = kwargs.get('key_cert')
         Configuration.sanitize = kwargs.get('sanitize')
         Configuration.log_file = kwargs.get('log_file')
