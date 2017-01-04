@@ -6,3 +6,4 @@ npsx.egg-info/
 examples.py
 nps.egg-info
 .pypirc
+*.pyc
