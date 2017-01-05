@@ -1,17 +1,17 @@
-# Python SDK
+#  Python SDK
 
 
-##Availability
+## Availability
 Supports Python 2.6, 2.7, 3.3, 3.4 and 3.5
 
 
-##How to install
+## How to install
 
 ```
 pip install nps_sdk
 ```
 
-##Configuration
+## Configuration
 
 It's a basic configuration of the SDK
 
@@ -54,14 +54,14 @@ except ApiException as e:
     pass
 ```
 
-##Environments
+## Environments
 
 ```python
 import nps_sdk
 from nps_sdk.constants import PRODUCTION_ENV, STAGING_ENV, SANDBOX_ENV
 ```
 
-##Error handling
+## Error handling
 
 ApiException: This exception is raised when a ReadTimeout or a ConnectTimeout occurs.
 
@@ -78,7 +78,7 @@ except ApiException as e:
     pass
 ```
 
-##Advanced configurations
+## Advanced configurations
 
 Nps SDK allows you to log what’s happening with you request inside of our SDK, it logs by default to stout.
 
@@ -95,7 +95,7 @@ import nps_sdk
 nps_sdk.Configuration.configure(secret_key="_YOUR_SECRET_KEY_", debug=True, log_file=”path/to/your/file.log”)
 ```
 
-The logging.INFO level will write concise information of the request and will mask sensitive data of the request.
+The logging.INFO level will write concise information of the request and will mask sensitive data of the request. 
 The logging.DEBUG level will write information about the request to let developers debug it in a more detailed way.
 
 ```python
@@ -124,3 +124,4 @@ Proxy configuration
 import nps_sdk
 nps_sdk.Configuration.configure(secret_key="_YOUR_SECRET_KEY_",  proxy_url="YOUR/PROXY/URL", proxy_username="USERNAME", proxy_password="YOUR_PASSWORD")
 ```
+

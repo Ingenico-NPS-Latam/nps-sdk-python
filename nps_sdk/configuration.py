@@ -2,6 +2,7 @@ from nps_sdk import constants
 from nps_sdk import errors
 import logging
 
+
 class Configuration(object):
 
     @staticmethod
@@ -20,12 +21,11 @@ class Configuration(object):
         Configuration.log_level = log_level
         Configuration.certificate = kwargs.get('cert', False)
         Configuration.c_key = kwargs.get('key_cert')
-        Configuration.sanitize = kwargs.get('sanitize')
+        Configuration.sanitize = kwargs.get('sanitize', True)
         Configuration.log_file = kwargs.get('log_file')
         Configuration.proxy_url = kwargs.get('proxy_url')
         Configuration.proxy_username = kwargs.get('proxy_username')
         Configuration.proxy_password = kwargs.get('proxy_password')
-
 
     @staticmethod
     def get_wsdl():

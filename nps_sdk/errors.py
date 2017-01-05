@@ -58,6 +58,15 @@ class ApiException(Exception):
         Exception.__init__(self, ApiException.msg)
 
 
+class LogException(Exception):
+    msg = """
+            DEBUG level is now allowed in PRODUCTION ENVIRONMENT
+            """
+
+    def __init__(self):
+        Exception.__init__(self, LogException.msg)
+
+
 class EnvironmentNotFound(Exception):
     msg = """
             El ambiente seleccionado es invalido.

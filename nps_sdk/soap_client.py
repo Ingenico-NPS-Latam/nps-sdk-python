@@ -1,8 +1,8 @@
 from nps_sdk.configuration import Configuration
-from nps_sdk import utils
+from nps_sdk import utils, constants
 from requests.exceptions import ReadTimeout, ConnectTimeout
 from nps_sdk.utils import RequestsTransport, LogPlugin, MaskedLogPlugin
-from nps_sdk.errors import ApiException
+from nps_sdk.errors import ApiException, LogException
 from suds import client
 import logging
 from nps_sdk.file_adapter import FileAdapter
@@ -18,13 +18,15 @@ class SoapClient(object):
     def _setup(self):
         plugings = []
         if Configuration.debug:
-
             if Configuration.log_file is not None:
                 logging.basicConfig(filename=Configuration.log_file, level=Configuration.log_level,
                                     format=utils.get_log_format())
             else:
                 logging.basicConfig(level=Configuration.log_level,
                                     format=utils.get_log_format())
+
+            if Configuration.log_level == logging.DEBUG and Configuration.environment ==  constants.PRODUCTION_ENV:
+                raise LogException
 
             if Configuration.log_level > logging.DEBUG or Configuration.log_level == 0:
                 plugings.append(MaskedLogPlugin())
