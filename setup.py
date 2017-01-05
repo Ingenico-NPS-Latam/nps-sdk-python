@@ -1,4 +1,4 @@
-version = '1.0.0'
+version = '1.0.1'
 
 from setuptools import setup, find_packages
 
@@ -23,7 +23,7 @@ setup(
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Software Development :: Libraries :: Python Modules"],
-  install_requires=['suds-jurko==0.6', 'requests==xyz'],
+  install_requires=['suds-jurko==0.6', 'requests==2.9.1'],
   package_data={ 'nps_sdk': ['wsdl/staging.wsdl',
                          'wsdl/sandbox.wsdl',
                          'wsdl/production.wsdl',
