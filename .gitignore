@@ -7,5 +7,10 @@ examples.py
 nps.egg-info
 .pypirc
 *.pyc
+nps_sdk/soap_client.pyc
+nps_sdk/errors.pyc
+nps_sdk.egg-info/PKG-INFO
+nps_sdk/*.pyc
+
 
 

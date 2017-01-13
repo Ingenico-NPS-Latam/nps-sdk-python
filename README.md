@@ -1,17 +1,17 @@
-#  Python SDK
+### Python SDK
 
 
-## Availability
+####Availability
 Supports Python 2.6, 2.7, 3.3, 3.4 and 3.5
 
 
-## How to install
+####How to install
 
 ```
 pip install nps_sdk
 ```
 
-## Configuration
+####Configuration
 
 It's a basic configuration of the SDK
 
@@ -37,15 +37,15 @@ params = {
     "psp_TxSource": 'WEB',
     "psp_MerchTxRef": 'ORDER69461-3',
     "psp_MerchOrderId": 'ORDER69461',
-    "psp_Amount": 15050,
-    "psp_NumPayments": 1,
+    "psp_Amount": '15050',
+    "psp_NumPayments": '1,'
     "psp_Currency": '032',
     "psp_Country": 'ARG',
-    "psp_Product": 14,
-    "psp_CardNumber": 4507990000000010,
-    "psp_CardExpDate": 1612,
+    "psp_Product": '14',
+    "psp_CardNumber": '4507990000000010',
+    "psp_CardExpDate": '1612',
     "psp_PosDateTime": '2016-12-01 12:00:00',
-    "psp_CardSecurityCode": 123
+    "psp_CardSecurityCode": '123'
 }
 try:
     nps = sdk.pay_online_2p(params)
@@ -54,14 +54,14 @@ except ApiException as e:
     pass
 ```
 
-## Environments
+####Environments
 
 ```python
 import nps_sdk
 from nps_sdk.constants import PRODUCTION_ENV, STAGING_ENV, SANDBOX_ENV
 ```
 
-## Error handling
+####Error handling
 
 ApiException: This exception is raised when a ReadTimeout or a ConnectTimeout occurs.
 
@@ -78,7 +78,7 @@ except ApiException as e:
     pass
 ```
 
-## Advanced configurations
+####Advanced configurations
 
 Nps SDK allows you to log what’s happening with you request inside of our SDK, it logs by default to stout.
 
