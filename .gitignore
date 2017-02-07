@@ -11,6 +11,4 @@ nps_sdk/soap_client.pyc
 nps_sdk/errors.pyc
 nps_sdk.egg-info/PKG-INFO
 nps_sdk/*.pyc
-
-
-
+nps_sdk/__pycache__/*

@@ -10,16 +10,16 @@ class Configuration(object):
                   secret_key="",
                   debug=False,
                   timeout=60,
-                  cert_verify_peer=None,
+                  cert_verify_peer=True,
                   log_level=logging.INFO,
                   **kwargs):
         Configuration.environment = environment
         Configuration.secret_key = secret_key
         Configuration.debug = debug
         Configuration.timeout = timeout
-        Configuration.cert_verify_peer = None
+        Configuration.cert_verify_peer = True
         Configuration.log_level = log_level
-        Configuration.certificate = kwargs.get('cert', False)
+        Configuration.certificate = kwargs.get('cert', cert_verify_peer)
         Configuration.c_key = kwargs.get('key_cert')
         Configuration.sanitize = kwargs.get('sanitize', True)
         Configuration.log_file = kwargs.get('log_file')

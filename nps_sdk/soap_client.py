@@ -9,7 +9,7 @@ from nps_sdk.file_adapter import FileAdapter
 import requests
 from suds.cache import NoCache
 from requests.auth import HTTPProxyAuth
-
+import requests
 
 class SoapClient(object):
     def __init__(self):
@@ -44,6 +44,11 @@ class SoapClient(object):
         if Configuration.certificate and Configuration.c_key:
             s.cert=(Configuration.certificate, Configuration.c_key)
         else:
+            if not Configuration.certificate:
+                pass
+                #from requests.packages.urllib3.exceptions import InsecureRequestWarning
+                #requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
             s.verify = Configuration.certificate
 
         t = RequestsTransport(s, timeout=Configuration.timeout)

@@ -92,6 +92,7 @@
  <xsd:complexType name="BillingDetailsStruct">
   <xsd:all>
    <xsd:element name="Invoice" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="InvoiceDate" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="InvoiceAmount" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="InvoiceCurrency" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="Person" type="tns:PersonStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
@@ -178,12 +179,34 @@
    </xsd:restriction>
   </xsd:complexContent>
  </xsd:complexType>
- <xsd:complexType name="AirlineDetailsStruct">
+ <xsd:complexType name="cc">
+  <xsd:all>
+   <xsd:element name="CarrierCode" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="TravelAgentCode" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="TravelAgentName" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="Date" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="Country" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="City" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="Address" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+  </xsd:all>
+ </xsd:complexType>
+ <xsd:complexType name="AirlineTicketStruct">
   <xsd:all>
    <xsd:element name="TicketNumber" type="xsd:string" nillable="false" minOccurs="1" maxOccurs="1"/>
+   <xsd:element name="Eticket" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="Restricted" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="Issue" type="tns:cc" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="TotalFareAmount" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="TotalTaxAmount" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="TotalFeeAmount" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+  </xsd:all>
+ </xsd:complexType>
+ <xsd:complexType name="AirlineDetailsStruct">
+  <xsd:all>
    <xsd:element name="PNR" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="Legs" type="tns:ArrayOf_LegStruct" nillable="false" minOccurs="1" maxOccurs="1"/>
    <xsd:element name="Passengers" type="tns:ArrayOf_PassengerStruct" nillable="false" minOccurs="1" maxOccurs="1"/>
+   <xsd:element name="Ticket" type="tns:AirlineTicketStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
   </xsd:all>
  </xsd:complexType>
  <xsd:complexType name="VaultReference2pStruct">
@@ -471,6 +494,7 @@
  <xsd:complexType name="RespuestaStruct_BankPayment_2p_BillingDetails">
   <xsd:all>
    <xsd:element name="Invoice" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="InvoiceDate" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="InvoiceAmount" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="InvoiceCurrency" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="Person" type="tns:PersonStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
@@ -891,11 +915,16 @@
    <xsd:element name="psp_Transactions" type="tns:ArrayOf_RespuestaStruct_SplitPayOnLine_3p_Transactions" nillable="false"/>
   </xsd:all>
  </xsd:complexType>
+ <xsd:complexType name="VaultReference3pStruct">
+  <xsd:all>
+   <xsd:element name="CustomerId" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+  </xsd:all>
+ </xsd:complexType>
  <xsd:complexType name="RequerimientoStruct_Authorize_3p">
   <xsd:all>
    <xsd:element name="psp_Version" type="xsd:string" nillable="false" minOccurs="1" maxOccurs="1"/>
-   <xsd:element name="psp_MerchantId" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
-   <xsd:element name="psp_TxSource" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="psp_MerchantId" type="xsd:string" nillable="false" minOccurs="1" maxOccurs="1"/>
+   <xsd:element name="psp_TxSource" type="xsd:string" nillable="false" minOccurs="1" maxOccurs="1"/>
    <xsd:element name="psp_MerchTxRef" type="xsd:string" nillable="false" minOccurs="1" maxOccurs="1"/>
    <xsd:element name="psp_MerchOrderId" type="xsd:string" nillable="false" minOccurs="1" maxOccurs="1"/>
    <xsd:element name="psp_MerchAdditionalRef" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
@@ -938,6 +967,7 @@
    <xsd:element name="psp_ShippingDetails" type="tns:ShippingDetailsStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="psp_OrderDetails" type="tns:OrderDetailsStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="psp_AirlineDetails" type="tns:AirlineDetailsStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="psp_VaultReference" type="tns:VaultReference3pStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
   </xsd:all>
  </xsd:complexType>
  <xsd:complexType name="RespuestaStruct_Authorize_3p">
@@ -1778,6 +1808,7 @@
  <xsd:complexType name="RespuestaStruct_SimpleQueryTx_BillingDetails">
   <xsd:all>
    <xsd:element name="Invoice" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="InvoiceDate" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="InvoiceAmount" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="InvoiceCurrency" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="Person" type="tns:PersonStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
@@ -1805,10 +1836,10 @@
  </xsd:complexType>
  <xsd:complexType name="RespuestaStruct_SimpleQueryTx_AirlineDetails">
   <xsd:all>
-   <xsd:element name="TicketNumber" type="xsd:string" nillable="false" minOccurs="1" maxOccurs="1"/>
    <xsd:element name="PNR" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="Legs" type="tns:ArrayOf_LegStruct" nillable="false" minOccurs="1" maxOccurs="1"/>
    <xsd:element name="Passengers" type="tns:ArrayOf_PassengerStruct" nillable="false" minOccurs="1" maxOccurs="1"/>
+   <xsd:element name="Ticket" type="tns:AirlineTicketStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
   </xsd:all>
  </xsd:complexType>
  <xsd:complexType name="RespuestaStruct_SimpleQueryTx_Transactions">
