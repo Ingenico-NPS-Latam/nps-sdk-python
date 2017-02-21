@@ -17,6 +17,7 @@ BANK_PAYMENT_2P = "BankPayment_2p"
 SPLIT_PAY_ONLINE_2P = "SplitPayOnLine_2p"
 SPLIT_AUTHORIZE_2P = "SplitAuthorize_2p"
 QUERY_CARD_NUMBER = "QueryCardNumber"
+QUERY_CARD_DETAILS = "QueryCardDetails"
 GET_IIN_DETAILS = "GetIINDetails"
 
 CREATE_PAYMENT_METHOD = "CreatePaymentMethod"
@@ -57,4 +58,5 @@ def get_merch_det_not_add_services():
             CREATE_PAYMENT_METHOD_TOKEN,
             RETRIEVE_PAYMENT_METHOD_TOKEN,
             CREATE_CLIENT_SESSION,
-            GET_INSTALLMENTS_OPTIONS]
+            GET_INSTALLMENTS_OPTIONS,
+            QUERY_CARD_DETAILS]

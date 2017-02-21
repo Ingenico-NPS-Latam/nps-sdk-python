@@ -140,3 +140,7 @@ class Nps(SoapClient):
     def split_authorize_2p(self, params):
         resp = self._soap_call(services.SPLIT_AUTHORIZE_2P, params)
         return resp
+
+    def query_card_details(self, params):
+        resp = self._soap_call(services.QUERY_CARD_DETAILS, params)
+        return resp
