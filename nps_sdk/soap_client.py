@@ -60,7 +60,7 @@ class SoapClient(object):
             if Configuration.sanitize:
                 params = utils._check_sanitize(params=params, is_root=True)
             if not params.get('psp_ClientSession'):
-                params = utils.add_secure_hash(params)
+                params = utils.add_secure_hash(params, Configuration.secret_key)
 
             response = getattr(self._client.service, service)(params)
             return response

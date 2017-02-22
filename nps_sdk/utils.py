@@ -60,15 +60,20 @@ def add_extra_info(service, params):
     params.update({"psp_MerchantAdditionalDetails": info})
     return params
 
-def add_secure_hash(params):
+def add_secure_hash(params, secret_key):
+    secure_hash = _create_secure_hash(params, secret_key)
+    params.update({"psp_SecureHash": secure_hash})
+    return params
+
+
+def _create_secure_hash(params, secret_key):
     m = hashlib.md5()
     od = collections.OrderedDict(sorted(params.items()))
-    concatenated_data = "".join([str(x).strip() for x in od.values() if type(x) is not dict]) + Configuration.secret_key
+    concatenated_data = "".join([str(x).strip() for x in od.values() if type(x) is not dict and type(x) is not list]) + secret_key
     concatenated_data = concatenated_data.encode('utf-8')
     m.update(concatenated_data)
     coded = m.hexdigest()
-    params.update({"psp_SecureHash": coded})
-    return params
+    return coded
 
 
 def _check_sanitize(params, is_root=False, nodo = None):
