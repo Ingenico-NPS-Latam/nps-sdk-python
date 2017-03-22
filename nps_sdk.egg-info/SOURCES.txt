@@ -22,3 +22,5 @@ nps_sdk/wsdl/development.wsdl
 nps_sdk/wsdl/production.wsdl
 nps_sdk/wsdl/sandbox.wsdl
 nps_sdk/wsdl/staging.wsdl
+test/__init__.py
+test/test.py

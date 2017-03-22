@@ -125,3 +125,43 @@ class TestServices(unittest.TestCase):
         espected = ['QueryTxs', 'Refund', 'SimpleQueryTx', 'Capture', 'ChangeSecretKey', 'NotifyFraudScreeningReview', 'GetIINDetails', 'QueryCardNumber', 'CreatePaymentMethod', 'CreatePaymentMethodFromPayment', 'RetrievePaymentMethod', 'UpdatePaymentMethod', 'DeletePaymentMethod', 'CreateCustomer', 'RetrieveCustomer', 'UpdateCustomer', 'DeleteCustomer', 'RecachePaymentMethodToken', 'CreatePaymentMethodToken', 'RetrievePaymentMethodToken', 'CreateClientSession', 'GetInstallmentsOptions', 'QueryCardDetails']
         resp = get_merch_det_not_add_services()
         self.assertEqual(espected, resp)
+
+class TestIssues(unittest.TestCase):
+
+    def test_secure_hash_w_list_in_root_node(self):
+        from nps_sdk.utils import _create_secure_hash
+
+        key = "IeShlZMDk8mp8VA6vy41mLnVggnj1yqHcJyNqIYaRINZnXdiTfhF0Ule9WNAUCR6"
+
+        params = {
+            "psp_Version": '2.2',
+            "psp_MerchantId": 'psp_test',
+            "psp_TxSource": 'WEB',
+            "psp_MerchOrderId": 'ORDER999qdw',
+            "psp_ReturnURL": 'http://localhost/',
+            "psp_FrmLanguage": 'es_AR',
+            "psp_Amount": 15050,
+            "psp_Currency": '032',
+            "psp_Country": 'ARG',
+            "psp_Product": 14,
+            "psp_PosDateTime": '2016-12-01 12:00:00',
+            "psp_Transactions": [{
+                "psp_MerchantId": 'psp_test',
+                "psp_MerchTxRef": 'ORDER36qx6-3',
+                "psp_Product": 14,
+                "psp_Amount": 10000,
+                "psp_NumPayments": 1
+            },{
+                "psp_MerchantId": 'psp_test',
+                "psp_MerchTxRef": 'ORDER1qd66-3',
+                "psp_Product": 14,
+                "psp_Amount": 5050,
+                "psp_NumPayments": 1
+            }]
+        }
+
+        resp = _create_secure_hash(params=params, secret_key=key)
+        self.assertEqual("a4defbaaaf41d581c8a35014820404df", resp)
+
+
+
