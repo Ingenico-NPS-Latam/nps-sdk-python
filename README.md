@@ -1,5 +1,4 @@
 #  Python SDK
-<%= image_tag '../images/devicon/python-original.svg', { :width => '60', :class => 'Python Client-side SDK', :alt => '' } %>
 
 ## Availability
 Supports Python 2.6, 2.7, 3.3, 3.4 and 3.5
