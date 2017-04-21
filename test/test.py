@@ -164,4 +164,93 @@ class TestIssues(unittest.TestCase):
         self.assertEqual("a4defbaaaf41d581c8a35014820404df", resp)
 
 
+    def test_issue_3930_error_500_on_p2p_with_updated_costumer_on_dev(self):
+        from nps_sdk.constants import DEVELOPMENT_ENV
+        import nps_sdk
+        import logging
+        import uuid
+        merch_ref = uuid.uuid4()
 
+        nps_sdk.Configuration.configure(environment=DEVELOPMENT_ENV,
+                                        secret_key="IeShlZMDk8mp8VA6vy41mLnVggnj1yqHcJyNqIYaRINZnXdiTfhF0Ule9WNAUCR6",
+                                        log_level=logging.INFO, debug=True, cert_verify_peer=False)
+
+        sdk = nps_sdk.Nps()
+
+        merchant_id = 'psp_test'
+
+        params = {'psp_AccountCreatedAt': '2010-10-23',
+                  'psp_EmailAddress': 'fedevalle@inclufin.com',
+                  'psp_MerchantId': merchant_id,
+                  'psp_Person': {'FirstName': 'Federico',
+                                 'LastName': 'del Valle',
+                                 'PhoneNumber1': '+5491164838755'},
+                  'psp_PosDateTime': '2017-02-09 18:42:43',
+                  'psp_Version': '2.2'}
+
+        create_customer_response = sdk.create_customer(params)
+
+
+        params = {
+            'psp_AccountCreatedAt': '2010-10-23',
+            'psp_Address': {
+                'AdditionalInfo': '2 A',
+                'City': 'Miami',
+                'Country': 'USA',
+                'HouseNumber': '1245',
+                'StateProvince': 'Florida',
+                'Street': 'Av. Collins',
+                'ZipCode': '33140'
+            },
+            'psp_AlternativeEmailAddress': 'jdoe@example.com',
+            'psp_CustomerId': create_customer_response.psp_CustomerId,
+            'psp_EmailAddress': 'jhon.doe@example.com',
+            'psp_MerchantId': merchant_id,
+            'psp_PaymentMethod': {
+                'CardInputDetails': {
+                    'ExpirationDate': '1909',
+                    'HolderName': 'VISA',
+                    'Number': '4242424242424242',
+                    'SecurityCode': '9822'
+                },
+                'Product': '14'
+            },
+            'psp_Person': {
+                'DateOfBirth': '1979-01-12',
+                'FirstName': 'John',
+                'Gender': 'M',
+                'IDNumber': '54111111',
+                'IDType': '200',
+                'LastName': 'Doe',
+                'MiddleName': 'Michael',
+                'Nationality': 'ARG',
+                'PhoneNumber1': '+1 011 11111111',
+                'PhoneNumber2': '+1 011 22222222'
+            },
+            'psp_PosDateTime': '2008-01-12 13:05:00',
+            'psp_Version': '2.2'
+        }
+
+        update_customer_response = sdk.update_customer(params)
+
+        params = {
+            'psp_MerchOrderId': merch_ref,
+            'psp_VaultReference': {
+                'CustomerId': update_customer_response.psp_CustomerId
+            },
+            'psp_MerchTxRef': merch_ref,
+            'psp_PosDateTime': '2017-03-31 16:14:06',
+            'psp_NumPayments': '1',
+            'psp_Currency': '032',
+            'psp_TxSource': 'WEB',
+            'psp_Product': '14',
+            'psp_Country': 'ARG',
+            'psp_Version': '2.2',
+            'psp_MerchantId': merchant_id,
+            'psp_Amount': "1000"
+        }
+
+        p2p_response = sdk.pay_online_2p(params)
+
+
+        self.assertEqual("2", p2p_response.psp_ResponseCod)

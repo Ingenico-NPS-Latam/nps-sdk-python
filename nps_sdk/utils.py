@@ -113,12 +113,16 @@ def _mask_data(data):
     data = _mask_c_number(data)
     data = _mask_exp_date(data)
     data = _mask_cvc(data)
+    data = _mask_tokenization_c_number(data)
+    data = _mask_tokenization_exp_date(data)
+    data = _mask_tokenization_cvc(data)
+
     return data
 
 
 def _mask_c_number(data):
     c_number_key = "</psp_CardNumber>"
-    c_numbers = _find_c_numbers(data)
+    c_numbers = _find_c_numbers(data, c_number_key)
     for c_number in c_numbers:
         c_number_len = len(c_number[0: len(c_number) - len(c_number_key)])
         masked_chars = c_number_len - 10
@@ -129,32 +133,58 @@ def _mask_c_number(data):
 
 def _mask_exp_date(data):
     exp_date_key = "</psp_CardExpDate>"
-    exp_dates = _find_exp_date(data)
+    exp_dates = _find_exp_date(data, exp_date_key)
     for exp_date in exp_dates:
         data = data.replace(exp_date, "****" + exp_date_key)
     return data
 
 def _mask_cvc(data):
     cvc_key = "</psp_CardSecurityCode>"
-    cvcs = _find_cvc(data)
+    cvcs = _find_cvc(data, cvc_key)
+    for cvc in cvcs:
+        cvc_len = len(cvc[0: len(cvc) - len(cvc_key)])
+        data = data.replace(cvc, "*"*cvc_len + cvc_key)
+    return data
+
+def _mask_tokenization_c_number(data):
+    c_number_key = "</Number>"
+    c_numbers = _find_c_numbers(data, c_number_key)
+    for c_number in c_numbers:
+        c_number_len = len(c_number[0: len(c_number) - len(c_number_key)])
+        masked_chars = c_number_len - 10
+        data = data.replace(c_number,
+                            c_number[0: 6] + "*"*masked_chars + c_number[len(c_number)-4-len(c_number_key): len(c_number)])
+
+    return data
+
+def _mask_tokenization_exp_date(data):
+    exp_date_key = "</ExpirationDate>"
+    exp_dates = _find_exp_date(data, exp_date_key)
+    for exp_date in exp_dates:
+        data = data.replace(exp_date, "****" + exp_date_key)
+    return data
+
+def _mask_tokenization_cvc(data):
+    cvc_key = "</SecurityCode>"
+    cvcs = _find_cvc(data, cvc_key)
     for cvc in cvcs:
         cvc_len = len(cvc[0: len(cvc) - len(cvc_key)])
         data = data.replace(cvc, "*"*cvc_len + cvc_key)
     return data
 
 
-def _find_c_numbers(data):
-    c_numbers = re.findall("\d{13,19}</psp_CardNumber>", data)
+def _find_c_numbers(data, key):
+    c_numbers = re.findall("\d{13,19}" + key, data)
     return c_numbers
 
 
-def _find_exp_date(data):
-    exp_dates = re.findall("\d{4}</psp_CardExpDate>", data)
+def _find_exp_date(data, key):
+    exp_dates = re.findall("\d{4}" + key, data)
     return exp_dates
 
 
-def _find_cvc(data):
-    cvcs = re.findall("\d{3,4}</psp_CardSecurityCode>", data)
+def _find_cvc(data, key):
+    cvcs = re.findall("\d{3,4}" + key, data)
     return cvcs
 
 

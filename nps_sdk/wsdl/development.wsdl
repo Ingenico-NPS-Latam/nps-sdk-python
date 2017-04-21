@@ -1437,7 +1437,7 @@
   <xsd:all>
    <xsd:element name="psp_ResponseCod" type="xsd:string" nillable="false"/>
    <xsd:element name="psp_ResponseMsg" type="xsd:string" nillable="false"/>
-   <xsd:element name="psp_ResponseExtended" type="xsd:string" nillable="false"/>
+   <xsd:element name="F" type="xsd:string" nillable="false"/>
    <xsd:element name="psp_MerchantId" type="xsd:string" nillable="false"/>
    <xsd:element name="psp_PaymentMethodToken" type="xsd:string" nillable="false"/>
    <xsd:element name="psp_Product" type="xsd:string" nillable="false"/>
@@ -2631,7 +2631,7 @@
 </binding>
 <service name="PaymentServicePlatform">
   <port name="PaymentServicePlatformPort" binding="tns:PaymentServicePlatformBinding">
-    <soap:address location="https://psp.nps.com.ar:443/ws.php"/>
+    <soap:address location="https://dev.nps.com.ar:443/ws.php"/>
   </port>
 </service>
 </definitions>
