@@ -1417,7 +1417,6 @@
   <xsd:all>
    <xsd:element name="psp_Version" type="xsd:string" nillable="false" minOccurs="1" maxOccurs="1"/>
    <xsd:element name="psp_MerchantId" type="xsd:string" nillable="false" minOccurs="1" maxOccurs="1"/>
-   <xsd:element name="psp_Product" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="psp_CardInputDetails" type="tns:CardInputDetailsStruct" nillable="false" minOccurs="1" maxOccurs="1"/>
    <xsd:element name="psp_Person" type="tns:PersonStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="psp_Address" type="tns:AddressStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
@@ -1433,6 +1432,7 @@
    <xsd:element name="HolderName" type="xsd:string" nillable="false"/>
    <xsd:element name="IIN" type="xsd:string" nillable="false"/>
    <xsd:element name="Last4" type="xsd:string" nillable="false"/>
+   <xsd:element name="NumberLength" type="xsd:string" nillable="false"/>
    <xsd:element name="MaskedNumber" type="xsd:string" nillable="false"/>
    <xsd:element name="MaskedNumberAlternative" type="xsd:string" nillable="false"/>
   </xsd:all>
@@ -1527,7 +1527,7 @@
  <xsd:complexType name="PaymentMethodInputDetailsStruct">
   <xsd:all>
    <xsd:element name="PaymentMethodToken" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
-   <xsd:element name="Product" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
+   <xsd:element name="PaymentMethodTag" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="CardInputDetails" type="tns:CardInputDetailsStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="Person" type="tns:PersonStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="Address" type="tns:AddressStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
@@ -1547,6 +1547,7 @@
  <xsd:complexType name="PaymentMethodOutputDetailsStruct">
   <xsd:all>
    <xsd:element name="PaymentMethodId" type="xsd:string" nillable="false"/>
+   <xsd:element name="PaymentMethodTag" type="xsd:string" nillable="false"/>
    <xsd:element name="Product" type="xsd:string" nillable="false"/>
    <xsd:element name="CardOutputDetails" type="tns:CardOutputDetailsStruct" nillable="false"/>
    <xsd:element name="FingerPrint" type="xsd:string" nillable="false"/>
@@ -1572,6 +1573,7 @@
    <xsd:element name="psp_Version" type="xsd:string" nillable="false" minOccurs="1" maxOccurs="1"/>
    <xsd:element name="psp_MerchantId" type="xsd:string" nillable="false" minOccurs="1" maxOccurs="1"/>
    <xsd:element name="psp_TransactionId" type="xsd:string" nillable="false" minOccurs="1" maxOccurs="1"/>
+   <xsd:element name="psp_PaymentMethodTag" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="psp_CustomerId" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="psp_SetAsCustomerDefault" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="psp_PosDateTime" type="xsd:string" nillable="false" minOccurs="1" maxOccurs="1"/>
@@ -1620,6 +1622,7 @@
    <xsd:element name="psp_Version" type="xsd:string" nillable="false" minOccurs="1" maxOccurs="1"/>
    <xsd:element name="psp_MerchantId" type="xsd:string" nillable="false" minOccurs="1" maxOccurs="1"/>
    <xsd:element name="psp_PaymentMethodId" type="xsd:string" nillable="false" minOccurs="1" maxOccurs="1"/>
+   <xsd:element name="psp_PaymentMethodTag" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="psp_CardInputDetails" type="tns:CardInputUpdateDetailsStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="psp_Person" type="tns:PersonStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
    <xsd:element name="psp_Address" type="tns:AddressStruct" nillable="false" minOccurs="0" maxOccurs="1"/>
@@ -1676,6 +1679,7 @@
  <xsd:complexType name="PaymentMethodsOutputDetailsStruct">
   <xsd:all>
    <xsd:element name="PaymentMethodId" type="xsd:string" nillable="false"/>
+   <xsd:element name="PaymentMethodTag" type="xsd:string" nillable="false"/>
    <xsd:element name="Product" type="xsd:string" nillable="false"/>
    <xsd:element name="CardOutputDetails" type="tns:CardOutputDetailsStruct" nillable="false"/>
    <xsd:element name="FingerPrint" type="xsd:string" nillable="false"/>

@@ -165,13 +165,13 @@ class TestIssues(unittest.TestCase):
 
 
     def test_issue_3930_error_500_on_p2p_with_updated_costumer_on_dev(self):
-        from nps_sdk.constants import DEVELOPMENT_ENV
+        from nps_sdk.constants import DEVELOPMENT_ENV, SANDBOX_ENV
         import nps_sdk
         import logging
         import uuid
         merch_ref = uuid.uuid4()
 
-        nps_sdk.Configuration.configure(environment=DEVELOPMENT_ENV,
+        nps_sdk.Configuration.configure(environment=SANDBOX_ENV,
                                         secret_key="IeShlZMDk8mp8VA6vy41mLnVggnj1yqHcJyNqIYaRINZnXdiTfhF0Ule9WNAUCR6",
                                         log_level=logging.INFO, debug=True, cert_verify_peer=False)
 
@@ -254,3 +254,208 @@ class TestIssues(unittest.TestCase):
 
 
         self.assertEqual("2", p2p_response.psp_ResponseCod)
+
+
+    def test_response_of_p2p_with_billing_details(self):
+        from nps_sdk.constants import DEVELOPMENT_ENV, SANDBOX_ENV
+        import nps_sdk
+        import logging
+        import uuid
+        merch_ref = uuid.uuid4()
+
+        nps_sdk.Configuration.configure(environment=SANDBOX_ENV,
+                                        secret_key="IeShlZMDk8mp8VA6vy41mLnVggnj1yqHcJyNqIYaRINZnXdiTfhF0Ule9WNAUCR6",
+                                        log_level=logging.INFO, debug=True, cert_verify_peer=False)
+
+        sdk = nps_sdk.Nps()
+
+        merchant_id = 'psp_test'
+
+        params = {
+                    "psp_Version": '2.2',
+                    "psp_MerchantId": merchant_id,
+                    "psp_TxSource": 'WEB',
+                    "psp_MerchTxRef": merch_ref,
+                    "psp_MerchOrderId": merch_ref,
+                    "psp_Amount": '15050',
+                    "psp_NumPayments": '1',
+                    "psp_Currency": '032',
+                    "psp_Country": 'ARG',
+                    "psp_Product": '14',
+                    "psp_CardNumber": '4850110000000000',
+                    "psp_CardExpDate": '1712',
+                    "psp_PosDateTime": '2016-12-01 12:00:00',
+                    "psp_CardSecurityCode": '123',
+                    "psp_CardHolderName": "Gustavo Diaz",
+                    "psp_PurchaseDescription" : "Juguetes",
+                    "psp_BillingDetails": {
+                        "Invoice": "123",
+                        "Invoice": "2017-01-01",
+                        "InvoiceAmount": "123",
+                        "InvoiceCurrency": "032",
+                        "Person": {
+                            'FirstName': 'John',
+                            'LastName': 'Doe',
+                            'MiddleName': 'Michael',
+                            'PhoneNumber1': '+1 011 11111111',
+                            'PhoneNumber2': '+1 011 22222222',
+                            'DateOfBirth': '1979-01-12',
+                            'Gender': 'M',
+                            'Nationality': 'ARG',
+                            'IDNumber': '54111111',
+                            'IDType': '200'
+                        },
+                        'Address': {
+                            'Street': 'Av. Collins',
+                            'HouseNumber': '1245',
+                            'AdditionalInfo': '2 A',
+                            'StateProvince': 'Florida',
+                            'City': 'Miami',
+                            'Country': 'USA',
+                            'ZipCode': '33140'
+                        }
+                    }
+                  }
+
+        resp = sdk.pay_online_2p(params)
+
+        params = {
+            "psp_Version": '2.2',
+            "psp_MerchantId": merchant_id,
+            "psp_QueryCriteria": 'T',
+            "psp_QueryCriteriaId": resp.psp_TransactionId,
+            "psp_PosDateTime": '2016-12-01 12:00:00'
+        }
+
+        resp = sdk.simple_query_tx(params)
+        print resp
+
+
+    def test_add_two_payment_methods_to_client(self):
+        from nps_sdk.constants import DEVELOPMENT_ENV, SANDBOX_ENV
+        import nps_sdk
+        import logging
+        import uuid
+        merch_ref = uuid.uuid4()
+
+        nps_sdk.Configuration.configure(environment=SANDBOX_ENV,
+                                        #secret_key="IeShlZMDk8mp8VA6vy41mLnVggnj1yqHcJyNqIYaRINZnXdiTfhF0Ule9WNAUCR6",
+                                        secret_key="swGYxNeehNO8fS1zgwvCICevqjHbXcwPWAvTVZ5CuULZwKWaGPmXbPSP8i1fKv2q",
+                                        log_level=logging.INFO, debug=True, cert_verify_peer=False)
+        sdk = nps_sdk.Nps()
+        merchant_id = 'sdk_test'
+
+        params = {
+            'psp_Version': '2.2',
+            'psp_MerchantId': merchant_id,
+            'psp_PosDateTime': '2017-01-01 12:00:00'
+        }
+        resp = sdk.create_client_session(params)
+
+        params = {'psp_Address': {'AdditionalInfo': '2 A',
+                                  'City': 'Miami',
+                                  'Country': 'USA',
+                                  'HouseNumber': '1245',
+                                  'StateProvince': 'Florida',
+                                  'Street': 'Av. Collins',
+                                  'ZipCode': '33140'},
+                  'psp_CardInputDetails': {'ExpirationDate': '1909',
+                                           'HolderName': 'sol',
+                                           'Number': '4242424242424243',
+                                           'SecurityCode': '123'},
+                  'psp_ClientSession': resp.psp_ClientSession,
+                  'psp_MerchantId': merchant_id,
+                  'psp_Person': {'DateOfBirth': '1979-01-12',
+                                 'FirstName': 'John',
+                                 'Gender': 'M',
+                                 'IDNumber': '54111111',
+                                 'IDType': '200',
+                                 'LastName': 'Doe',
+                                 'MiddleName': 'Michael',
+                                 'Nationality': 'ARG',
+                                 'PhoneNumber1': '+1 011 11111111',
+                                 'PhoneNumber2': '+1 011 22222222'},
+                  'psp_Product': '14',
+                  'psp_Version': '2.2'}
+
+        resp_cppt = sdk.create_payment_method_token(params)
+
+        params = {
+            'psp_Version': '2.2',
+            'psp_MerchantId': merchant_id,
+            'psp_EmailAddress': 'jhon.doe@example.com',
+            'psp_AlternativeEmailAddress': 'jdoe@example.com',
+            'psp_AccountID': 'jdoe78',
+            'psp_AccountCreatedAt': '2010-10-23',
+            'psp_PosDateTime': '2008-01-12 13:05:00',
+            'psp_Person': {
+                'FirstName': 'John',
+                'LastName': 'Doe',
+                'MiddleName': 'Michael',
+                'PhoneNumber1': '+1 011 11111111',
+                'PhoneNumber2': '+1 011 22222222',
+                'DateOfBirth': '1979-01-12',
+                'Gender': 'M',
+                'Nationality': 'ARG',
+                'IDNumber': '54111111',
+                'IDType': '200'
+            },
+            'psp_Address': {
+                'Street': 'Av. Collins',
+                'HouseNumber': '1245',
+                'AdditionalInfo': '2 A',
+                'StateProvince': 'Florida',
+                'City': 'Miami',
+                'Country': 'USA',
+                'ZipCode': '33140'
+            }
+        }
+
+        resp_cc = sdk.create_customer(params)
+
+        params = {
+                    'psp_MerchantId': merchant_id,
+                    'psp_CustomerId': resp_cc.psp_CustomerId,
+                    'psp_PaymentMethod': {
+                        'PaymentMethodToken': resp_cppt.psp_PaymentMethodToken
+                    },
+                    'psp_PosDateTime': '2008-01-12 13:05:00',
+                    'psp_SetAsCustomerDefault': '1',
+                    'psp_Version': '2.2'
+                }
+
+        resp_cpm1 = sdk.create_payment_method(params)
+        resp_cpm1 = sdk.create_payment_method(params)
+
+        params = {
+            'psp_CustomerId': resp_cc.psp_CustomerId,
+            'psp_MerchantId': merchant_id,
+            'psp_PosDateTime': '2008-01-12 13:05:00',
+            'psp_Version': '2.2'
+        }
+
+        resp = sdk.retrieve_customer(params)
+
+
+    def test_get_customer(test):
+        from nps_sdk.constants import DEVELOPMENT_ENV, SANDBOX_ENV
+        import nps_sdk
+        import logging
+        import uuid
+        merch_ref = uuid.uuid4()
+
+        nps_sdk.Configuration.configure(environment=SANDBOX_ENV,
+                                        secret_key="IeShlZMDk8mp8VA6vy41mLnVggnj1yqHcJyNqIYaRINZnXdiTfhF0Ule9WNAUCR6",
+                                        #secret_key="swGYxNeehNO8fS1zgwvCICevqjHbXcwPWAvTVZ5CuULZwKWaGPmXbPSP8i1fKv2q",
+                                        log_level=logging.INFO, debug=True, cert_verify_peer=False)
+        sdk = nps_sdk.Nps()
+        merchant_id = 'psp_test'
+
+        params = {
+            'psp_CustomerId': '5hnNzGs2lMPw2ch33Yi0Ep334dDIoStQ',
+            'psp_MerchantId': merchant_id,
+            'psp_PosDateTime': '2008-01-12 13:05:00',
+            'psp_Version': '2.2'
+        }
+
+        resp = sdk.retrieve_customer(params)
