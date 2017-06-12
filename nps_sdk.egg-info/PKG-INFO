@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: nps-sdk
-Version: 1.1.9
+Version: 1.1.10
 Summary: A Python SDK for Ingenico ePayments - NPS LatAm Services
 Home-page: https://github.com/Ingenico-NPS-Latam/nps-sdk-python
 Author: Gustavo Diaz
