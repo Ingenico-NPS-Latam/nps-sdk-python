@@ -19,7 +19,7 @@ It's a basic configuration of the SDK
 import nps_sdk
 from nps_sdk.constants import SANDBOX_ENV
 
-nps_sdk.Configuration.configure(environment=SANDBOX, secret_key="_YOUR_SECRET_KEY_")
+nps_sdk.Configuration.configure(environment=SANDBOX_ENV, secret_key="_YOUR_SECRET_KEY_")
 ```
 
 
@@ -30,7 +30,7 @@ Here is an simple example request:
 from nps_sdk.errors import ApiException
 import nps_sdk
 
-nps = nps_sdk.Nps()
+sdk = nps_sdk.Nps()
 params = {
     "psp_Version": '2.2',
     "psp_MerchantId": 'psp_test',
@@ -38,7 +38,7 @@ params = {
     "psp_MerchTxRef": 'ORDER69461-3',
     "psp_MerchOrderId": 'ORDER69461',
     "psp_Amount": '15050',
-    "psp_NumPayments": '1,'
+    "psp_NumPayments": '1',
     "psp_Currency": '032',
     "psp_Country": 'ARG',
     "psp_Product": '14',
@@ -48,7 +48,7 @@ params = {
     "psp_CardSecurityCode": '123'
 }
 try:
-    nps = sdk.pay_online_2p(params)
+    resp = sdk.pay_online_2p(params)
 except ApiException as e:
     #Code to handle error
     pass
@@ -100,7 +100,7 @@ The logging.DEBUG level will write information about the request to let develope
 
 ```python
 import nps_sdk
-Import logging
+import logging
 nps_sdk.Configuration.configure(secret_key="_YOUR_SECRET_KEY_", debug=True, log_level=logging.DEBUG)
 ```
 

@@ -57,7 +57,11 @@ def add_extra_info(service, params):
     if service in services.get_merch_det_not_add_services():
         return params
     info = {"SdkInfo": sdk.get('language') + ' ' + sdk.get('version')}
-    params.update({"psp_MerchantAdditionalDetails": info})
+
+    if "psp_MerchantAdditionalDetails" in params.keys():
+        params.get("psp_MerchantAdditionalDetails").update(info)
+    else:
+        params.update({"psp_MerchantAdditionalDetails": info})
     return params
 
 def add_secure_hash(params, secret_key):
