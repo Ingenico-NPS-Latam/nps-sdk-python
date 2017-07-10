@@ -225,6 +225,23 @@ class OutgoingFilter(logging.Filter):
         return record.msg.startswith('sending:')
 
 
+class Proxy(object):
+
+    def __init__(self, protocol = "http", url = None, port = None, user = None, password = None):
+        self._protocol = protocol
+        self._url = url
+        self._port = port
+        self._user = user
+        self._password = password
+
+    def _get_builded_url(self):
+        return {self._protocol, "".join([self._url, ":", self._port])}
+
+    def get_user(self):
+        return self._user
+
+    def get_password(self):
+        return self._password
 
 
 

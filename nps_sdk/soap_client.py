@@ -36,10 +36,10 @@ class SoapClient(object):
 
         s = requests.Session()
         s.mount('file://', FileAdapter())
-        if Configuration.proxy_url:
-            s.proxies = { 'https': Configuration.proxy_url }
-            if Configuration.proxy_username:
-                s.auth= HTTPProxyAuth(Configuration.proxy_username, Configuration.proxy_password)
+        if Configuration.proxy:
+            s.proxies = Configuration.proxy._get_builded_url()
+            if Configuration.proxy.get_user():
+                s.auth= HTTPProxyAuth(Configuration.proxy.get_user(), Configuration.proxy.get_password())
 
         if Configuration.certificate and Configuration.c_key:
             s.cert=(Configuration.certificate, Configuration.c_key)

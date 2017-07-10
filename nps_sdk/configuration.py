@@ -23,9 +23,7 @@ class Configuration(object):
         Configuration.c_key = kwargs.get('key_cert')
         Configuration.sanitize = kwargs.get('sanitize', True)
         Configuration.log_file = kwargs.get('log_file')
-        Configuration.proxy_url = kwargs.get('proxy_url')
-        Configuration.proxy_username = kwargs.get('proxy_username')
-        Configuration.proxy_password = kwargs.get('proxy_password')
+        Configuration.proxy = kwargs.get('proxy')
 
     @staticmethod
     def get_wsdl():

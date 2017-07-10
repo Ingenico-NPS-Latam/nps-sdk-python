@@ -122,6 +122,8 @@ Proxy configuration
 
 ```python
 import nps_sdk
-nps_sdk.Configuration.configure(secret_key="_YOUR_SECRET_KEY_",  proxy_url="YOUR/PROXY/URL", proxy_username="USERNAME", proxy_password="YOUR_PASSWORD")
+from nps_sdk.utils import Proxy
+proxy = Proxy(protocol="http", url = "http://__YOUR_PROXY_URL", port="3128", user="_YOUR_USER_", password="_YOUR_PASSWORD")
+nps_sdk.Configuration.configure(secret_key="_YOUR_SECRET_KEY_", proxy = proxy)
 ```
 

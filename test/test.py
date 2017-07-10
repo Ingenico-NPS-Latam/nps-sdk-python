@@ -459,3 +459,28 @@ class TestIssues(unittest.TestCase):
         }
 
         resp = sdk.retrieve_customer(params)
+
+
+    def test_get_customer_with_proxy(test):
+        from nps_sdk.constants import DEVELOPMENT_ENV, SANDBOX_ENV
+        import nps_sdk
+        import logging
+        import uuid
+        from nps_sdk.utils import Proxy
+        merch_ref = uuid.uuid4()
+        proxy = Proxy(protocol="http", url = "http://10.129.10.70", port="3128", user=)
+        nps_sdk.Configuration.configure(environment=SANDBOX_ENV,
+                                        secret_key="IeShlZMDk8mp8VA6vy41mLnVggnj1yqHcJyNqIYaRINZnXdiTfhF0Ule9WNAUCR6",
+                                        #secret_key="swGYxNeehNO8fS1zgwvCICevqjHbXcwPWAvTVZ5CuULZwKWaGPmXbPSP8i1fKv2q",
+                                        log_level=logging.INFO, debug=True, cert_verify_peer=False, proxy = proxy)
+        sdk = nps_sdk.Nps()
+        merchant_id = 'psp_test'
+
+        params = {
+            'psp_CustomerId': '5hnNzGs2lMPw2ch33Yi0Ep334dDIoStQ',
+            'psp_MerchantId': merchant_id,
+            'psp_PosDateTime': '2008-01-12 13:05:00',
+            'psp_Version': '2.2'
+        }
+
+        resp = sdk.retrieve_customer(params)
