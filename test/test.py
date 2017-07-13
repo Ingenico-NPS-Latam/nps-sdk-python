@@ -466,13 +466,11 @@ class TestIssues(unittest.TestCase):
         import nps_sdk
         import logging
         import uuid
-        from nps_sdk.utils import Proxy
         merch_ref = uuid.uuid4()
-        proxy = Proxy(protocol="http", url = "http://10.129.10.70", port="3128", user=)
         nps_sdk.Configuration.configure(environment=SANDBOX_ENV,
                                         secret_key="IeShlZMDk8mp8VA6vy41mLnVggnj1yqHcJyNqIYaRINZnXdiTfhF0Ule9WNAUCR6",
                                         #secret_key="swGYxNeehNO8fS1zgwvCICevqjHbXcwPWAvTVZ5CuULZwKWaGPmXbPSP8i1fKv2q",
-                                        log_level=logging.INFO, debug=True, cert_verify_peer=False, proxy = proxy)
+                                        log_level=logging.INFO, debug=True, cert_verify_peer=False, proxy_url="http://10.129.10.70", proxy_port=3128)
         sdk = nps_sdk.Nps()
         merchant_id = 'psp_test'
 
@@ -484,3 +482,10 @@ class TestIssues(unittest.TestCase):
         }
 
         resp = sdk.retrieve_customer(params)
+
+    def test_fuck(self):
+        import requests
+        s = requests.Session()
+        s.headers = {'user-agent': 'my-test-script'}
+        s.proxies = {'http': 'http://10.129.10.70:3128'}
+        print s.get('http://mentos.com')

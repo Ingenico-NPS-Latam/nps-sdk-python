@@ -6,7 +6,6 @@ from nps_sdk.errors import ApiException, LogException
 from suds import client
 import logging
 from nps_sdk.file_adapter import FileAdapter
-import requests
 from suds.cache import NoCache
 from requests.auth import HTTPProxyAuth
 import requests
@@ -36,19 +35,14 @@ class SoapClient(object):
 
         s = requests.Session()
         s.mount('file://', FileAdapter())
-        if Configuration.proxy:
-            s.proxies = Configuration.proxy._get_builded_url()
-            if Configuration.proxy.get_user():
-                s.auth= HTTPProxyAuth(Configuration.proxy.get_user(), Configuration.proxy.get_password())
+        if Configuration.proxy_url:
+            s.proxies = utils.get_builded_proxy_url(Configuration.proxy_url, Configuration.proxy_port)
+            if Configuration.proxy_user:
+                s.auth= HTTPProxyAuth(Configuration.proxy_user, Configuration.proxy_pass)
 
         if Configuration.certificate and Configuration.c_key:
             s.cert=(Configuration.certificate, Configuration.c_key)
         else:
-            if not Configuration.certificate:
-                pass
-                #from requests.packages.urllib3.exceptions import InsecureRequestWarning
-                #requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-
             s.verify = Configuration.certificate
 
         t = RequestsTransport(s, timeout=Configuration.timeout)

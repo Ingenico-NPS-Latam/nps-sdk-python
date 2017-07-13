@@ -47,6 +47,7 @@ class RequestsTransport(transport.Transport):
         if resp.headers.get('content-type') not in ('text/xml',
                                                     'application/soap+xml'):
             resp.raise_for_status()
+
         return transport.Reply(
             resp.status_code,
             resp.headers,
@@ -202,6 +203,10 @@ def get_log_format():
     return _log_format
 
 
+def get_builded_proxy_url(url, port):
+    return {"https": "".join([url, ":", str(port)])}
+
+
 class LogPlugin(MessagePlugin):
 
     def sending(self, context):
@@ -223,25 +228,3 @@ class MaskedLogPlugin(MessagePlugin):
 class OutgoingFilter(logging.Filter):
     def filter(self, record):
         return record.msg.startswith('sending:')
-
-
-class Proxy(object):
-
-    def __init__(self, protocol = "http", url = None, port = None, user = None, password = None):
-        self._protocol = protocol
-        self._url = url
-        self._port = port
-        self._user = user
-        self._password = password
-
-    def _get_builded_url(self):
-        return {self._protocol, "".join([self._url, ":", self._port])}
-
-    def get_user(self):
-        return self._user
-
-    def get_password(self):
-        return self._password
-
-
-
