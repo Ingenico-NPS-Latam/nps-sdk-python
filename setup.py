@@ -1,4 +1,4 @@
-version = '1.1.14'
+version = '1.1.15'
 
 from setuptools import setup, find_packages
 
@@ -7,8 +7,8 @@ setup(
   packages = find_packages(),
   version = version,
   description = 'A Python SDK for Ingenico ePayments - NPS LatAm Services',
-  author = 'Gustavo Diaz',
-  author_email = 'gustavo.diaz@ingenico.com',
+  author = 'Ingenico',
+  author_email = 'merchantservices@ingenico.com',
   url = 'https://github.com/Ingenico-NPS-Latam/nps-sdk-python',
   keywords = ['ingenico', 'payments', 'npssdk', 'nps-sdk'],
   classifiers = [
