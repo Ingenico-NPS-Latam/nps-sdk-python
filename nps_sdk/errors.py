@@ -60,7 +60,7 @@ class ApiException(Exception):
 
 class LogException(Exception):
     msg = """
-            DEBUG level is now allowed in PRODUCTION ENVIRONMENT
+            DEBUG level is not allowed in PRODUCTION ENVIRONMENT
             """
 
     def __init__(self):
