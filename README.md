@@ -127,3 +127,10 @@ proxy = Proxy(protocol="http", url = "http://__YOUR_PROXY_URL", port="3128", use
 nps_sdk.Configuration.configure(secret_key="_YOUR_SECRET_KEY_", proxy = proxy)
 ```
 
+WSDL cache
+
+```python
+import nps_sdk
+from nps_sdk.utils import Proxy
+nps_sdk.Configuration.configure(environment=SANDBOX_ENV, secret_key="_YOUR_SECRET_KEY_", cache=True, cache_location='/tmp', cache_duration=1) #days
+```

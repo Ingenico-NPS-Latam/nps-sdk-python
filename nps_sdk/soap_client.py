@@ -6,7 +6,7 @@ from nps_sdk.errors import ApiException, LogException
 from suds import client
 import logging
 from nps_sdk.file_adapter import FileAdapter
-from suds.cache import NoCache
+from suds.cache import NoCache, FileCache, DocumentCache, ObjectCache
 from requests.auth import HTTPProxyAuth
 import requests
 
@@ -16,6 +16,7 @@ class SoapClient(object):
 
     def _setup(self):
         plugings = []
+        cache_conf = NoCache()
         if Configuration.debug:
             if Configuration.log_file is not None:
                 logging.basicConfig(filename=Configuration.log_file, level=Configuration.log_level,
@@ -46,7 +47,11 @@ class SoapClient(object):
             s.verify = Configuration.certificate
 
         t = RequestsTransport(s, timeout=Configuration.timeout)
-        self._client = client.Client(Configuration.get_wsdl().strip(), plugins=plugings, transport=t, cache=NoCache())
+
+        if Configuration.cache:
+            cache_conf = ObjectCache(location=Configuration.cache_location, days=Configuration.cache_duration)
+
+        self._client = client.Client(Configuration.get_wsdl().strip(), plugins=plugings, transport=t, cache=cache_conf)
 
     def _soap_call(self, service, params):
         try:

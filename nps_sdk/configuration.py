@@ -1,3 +1,5 @@
+from jinja2.nodes import Concat
+
 from nps_sdk import constants
 from nps_sdk import errors
 import logging
@@ -27,6 +29,9 @@ class Configuration(object):
         Configuration.proxy_port = kwargs.get('proxy_port')
         Configuration.proxy_pass = kwargs.get('proxy_pass')
         Configuration.proxy_user = kwargs.get('proxy_user')
+        Configuration.cache = kwargs.get('cache')
+        Configuration.cache_location = kwargs.get('cache_location', '/tmp')
+        Configuration.cache_duration = kwargs.get('cache_duration', 1)
 
     @staticmethod
     def get_wsdl():
