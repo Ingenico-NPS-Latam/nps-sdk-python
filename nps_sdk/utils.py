@@ -4,12 +4,11 @@ import requests
 import suds.transport as transport
 from nps_sdk import services
 from nps_sdk.constants import sdk
-from nps_sdk import Configuration
 from nps_sdk.conf import sanititize_struc
 from suds.plugin import MessagePlugin
 import logging
 import re
-from version import VERSION
+from nps_sdk.version import VERSION
 
 _log_format = '%(asctime)s - NpsSDK - %(levelname)s - %(message)s'
 

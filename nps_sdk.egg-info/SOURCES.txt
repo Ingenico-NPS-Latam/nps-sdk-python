@@ -10,6 +10,7 @@ nps_sdk/sdk.py
 nps_sdk/services.py
 nps_sdk/soap_client.py
 nps_sdk/utils.py
+nps_sdk/version.py
 nps_sdk.egg-info/PKG-INFO
 nps_sdk.egg-info/SOURCES.txt
 nps_sdk.egg-info/dependency_links.txt

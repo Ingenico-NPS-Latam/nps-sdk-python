@@ -1,5 +1,3 @@
-from jinja2.nodes import Concat
-
 from nps_sdk import constants
 from nps_sdk import errors
 import logging
