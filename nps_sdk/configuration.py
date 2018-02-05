@@ -29,7 +29,7 @@ class Configuration(object):
         Configuration.proxy_user = kwargs.get('proxy_user')
         Configuration.cache = kwargs.get('cache')
         Configuration.cache_location = kwargs.get('cache_location', '/tmp')
-        Configuration.cache_duration = kwargs.get('cache_duration', 1)
+        Configuration.cache_duration = kwargs.get('cache_ttl', 86400)
 
     @staticmethod
     def get_wsdl():

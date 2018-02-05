@@ -49,7 +49,7 @@ class SoapClient(object):
         t = RequestsTransport(s, timeout=Configuration.timeout)
 
         if Configuration.cache:
-            cache_conf = ObjectCache(location=Configuration.cache_location, days=Configuration.cache_duration)
+            cache_conf = ObjectCache(location=Configuration.cache_location, seconds=Configuration.cache_duration)
 
         self._client = client.Client(Configuration.get_wsdl().strip(), plugins=plugings, transport=t, cache=cache_conf)
 
