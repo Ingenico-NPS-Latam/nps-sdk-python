@@ -1,7 +1,7 @@
 from nps_sdk.configuration import Configuration
 from nps_sdk import utils, constants
 from requests.exceptions import ReadTimeout, ConnectTimeout
-from nps_sdk.utils import RequestsTransport, LogPlugin, MaskedLogPlugin
+from nps_sdk.utils import RequestsTransport, LogPlugin
 from nps_sdk.errors import ApiException, LogException
 from suds import client
 import logging
@@ -28,10 +28,7 @@ class SoapClient(object):
             if Configuration.log_level == logging.DEBUG and Configuration.environment ==  constants.PRODUCTION_ENV:
                 raise LogException
 
-            if Configuration.log_level > logging.DEBUG or Configuration.log_level == 0:
-                plugings.append(MaskedLogPlugin())
-            else:
-                plugings.append(LogPlugin())
+            plugings.append(LogPlugin())
 
 
         s = requests.Session()
@@ -63,7 +60,9 @@ class SoapClient(object):
 
             response = getattr(self._client.service, service)(params)
             return response
-        except ReadTimeout:
+        except ReadTimeout as e:
+            logging.warning(e.message)
             raise ApiException
-        except ConnectTimeout:
+        except ConnectTimeout as e:
+            logging.warning(e.message)
             raise ApiException
