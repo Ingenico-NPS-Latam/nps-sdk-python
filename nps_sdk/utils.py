@@ -221,3 +221,24 @@ class LogPlugin(MessagePlugin):
 class OutgoingFilter(logging.Filter):
     def filter(self, record):
         return record.msg.startswith('sending:')
+
+def recursive_asdict(d):
+    """Convert Suds object into serializable format."""
+    from suds.sudsobject import asdict
+    out = {}
+    # out = OrderedDict()
+    for k, v in asdict(d).items():
+        if hasattr(v, '__keylist__'):
+            out[k] = recursive_asdict(v)
+        elif isinstance(v, list):
+            out[k] = []
+            for item in v:
+                if hasattr(item, '__keylist__'):
+                    out[k].append(recursive_asdict(item))
+                elif not isinstance(item, list):
+                    out[k] = item
+                else:
+                    out[k].append(str(item))
+        else:
+            out[k] = str(v)
+    return out

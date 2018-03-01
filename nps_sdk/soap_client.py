@@ -57,8 +57,9 @@ class SoapClient(object):
                 params = utils._check_sanitize(params=params, is_root=True)
             if not params.get('psp_ClientSession'):
                 params = utils.add_secure_hash(params, Configuration.secret_key)
-
             response = getattr(self._client.service, service)(params)
+            if not Configuration.as_obj:
+                response = utils.recursive_asdict(response)
             return response
         except ReadTimeout as e:
             logging.warning(e.message)

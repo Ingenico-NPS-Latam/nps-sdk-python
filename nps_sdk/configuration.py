@@ -30,6 +30,7 @@ class Configuration(object):
         Configuration.cache = kwargs.get('cache')
         Configuration.cache_location = kwargs.get('cache_location', '/tmp')
         Configuration.cache_duration = kwargs.get('cache_ttl', 86400)
+        Configuration.as_obj = kwargs.get('as_obj', False)
 
     @staticmethod
     def get_wsdl():
