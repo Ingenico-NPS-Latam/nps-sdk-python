@@ -211,11 +211,17 @@ class LogPlugin(MessagePlugin):
 
     def sending(self, context):
         logging.info(_parse_to_xml(_mask_data(context.envelope)))
-        logging.debug(_parse_to_xml(context.envelope))
 
     def received(self, context):
         logging.info(_parse_to_xml(_mask_data(context.reply)))
-        logging.debug(_parse_to_xml(context.reply))
+
+class LogPlugin(MessagePlugin):
+
+    def sending(self, context):
+        logging.info(_parse_to_xml(context.envelope))
+
+    def received(self, context):
+        logging.info(_parse_to_xml(context.reply))
 
 
 class OutgoingFilter(logging.Filter):
