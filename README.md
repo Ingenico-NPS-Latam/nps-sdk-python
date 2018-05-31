@@ -80,6 +80,8 @@ except ApiException as e:
 
 ## Advanced configurations
 
+### Logging
+
 Nps SDK allows you to log what’s happening with you request inside of our SDK, it logs by default to stout.
 
 ```python
@@ -87,13 +89,14 @@ import nps_sdk
 nps_sdk.Configuration.configure(secret_key="_YOUR_SECRET_KEY_", debug=True)
 ```
 
-
 If you have the debug option enabled, the sdk can write the output generated from the logger to the file you provided.
 
 ```python
 import nps_sdk
 nps_sdk.Configuration.configure(secret_key="_YOUR_SECRET_KEY_", debug=True, log_file=”path/to/your/file.log”)
 ```
+
+### LogLevel
 
 The logging.INFO level will write concise information of the request and will mask sensitive data of the request. 
 The logging.DEBUG level will write information about the request to let developers debug it in a more detailed way.
@@ -104,6 +107,8 @@ import logging
 nps_sdk.Configuration.configure(secret_key="_YOUR_SECRET_KEY_", debug=True, log_level=logging.DEBUG)
 ```
 
+### Sanitize
+
 Sanitize allows the SDK to truncate to a fixed size some fields that could make request fail, like extremely long name.
 
 ```python
@@ -111,14 +116,16 @@ import nps_sdk
 nps_sdk.Configuration.configure(secret_key="_YOUR_SECRET_KEY_", sanitize=True)
 ```
 
-you can change the timeout of the request.
+### Timeout
+
+You can change the timeout of the request.
 
 ```python
 import nps_sdk
 nps_sdk.Configuration.configure(secret_key="_YOUR_SECRET_KEY_",  timeout=60)
 ```
 
-Proxy configuration
+### Proxy configuration
 
 ```python
 import nps_sdk
@@ -127,7 +134,7 @@ proxy = Proxy(protocol="http", url = "http://__YOUR_PROXY_URL", port="3128", use
 nps_sdk.Configuration.configure(secret_key="_YOUR_SECRET_KEY_", proxy = proxy)
 ```
 
-Cache
+### Cache
 
 ```python
 import nps_sdk
