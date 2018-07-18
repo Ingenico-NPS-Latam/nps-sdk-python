@@ -57,7 +57,7 @@ class RequestsTransport(transport.Transport):
 def add_extra_info(service, params):
     if service in services.get_merch_det_not_add_services():
         return params
-    info = {"SdkInfo": sdk.get('language') + ' ' + VERSION}
+    info = {"SdkInfo": sdk.get('language') + ' SDK Version: ' + VERSION}
 
     if "psp_MerchantAdditionalDetails" in params.keys():
         params.get("psp_MerchantAdditionalDetails").update(info)
