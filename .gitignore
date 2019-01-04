@@ -16,3 +16,6 @@ nps_sdk/wsdl/development.wsdl
 examples_builders.py
 test.py
 test/*
+cielo3_examples.py
+general_test.py
+venv/*

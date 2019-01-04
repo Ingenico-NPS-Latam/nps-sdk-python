@@ -60,3 +60,10 @@ def get_merch_det_not_add_services():
             CREATE_CLIENT_SESSION,
             GET_INSTALLMENTS_OPTIONS,
             QUERY_CARD_DETAILS]
+
+def methods_without_secure_hash():
+        return [
+                RETRIEVE_PAYMENT_METHOD_TOKEN,
+                CREATE_PAYMENT_METHOD_TOKEN,
+                RECACHE_PAYMENT_METHOD_TOKEN
+        ]

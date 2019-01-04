@@ -1,12 +1,11 @@
 Metadata-Version: 1.1
 Name: nps-sdk
-Version: 1.1.24
+Version: 1.2.0
 Summary: A Python SDK for Ingenico ePayments - NPS LatAm Services
 Home-page: https://github.com/Ingenico-NPS-Latam/nps-sdk-python
 Author: Ingenico
 Author-email: merchantservices@ingenico.com
 License: UNKNOWN
-Description-Content-Type: UNKNOWN
 Description: UNKNOWN
 Keywords: ingenico,payments,npssdk,nps-sdk
 Platform: UNKNOWN

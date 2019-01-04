@@ -65,13 +65,30 @@ def add_extra_info(service, params):
         params.update({"psp_MerchantAdditionalDetails": info})
     return params
 
+
 def add_secure_hash(params, secret_key):
-    secure_hash = _create_secure_hash(params, secret_key)
+    secure_hash = _create_hmac_sha256_hash(params, secret_key)
     params.update({"psp_SecureHash": secure_hash})
     return params
 
 
-def _create_secure_hash(params, secret_key):
+def _create_hmac_sha256_hash(params, secret_key):
+    import hmac
+    od = collections.OrderedDict(sorted(params.items()))
+    concatenated_data = "".join([str(x).strip() for x in od.values() if type(x) is not dict and type(x) is not list])
+    hmac_hash = hmac.new(bytes(secret_key, 'UTF-8'), msg=bytes(concatenated_data, 'UTF-8'), digestmod=hashlib.sha256)
+    return hmac_hash.hexdigest()
+
+
+def _create_hmac_sha512_hash(params, secret_key):
+    import hmac
+    od = collections.OrderedDict(sorted(params.items()))
+    concatenated_data = "".join([str(x).strip() for x in od.values() if type(x) is not dict and type(x) is not list])
+    hmac_hash = hmac.new(bytes(secret_key, 'UTF-8'), msg=bytes(concatenated_data, 'UTF-8'), digestmod=hashlib.sha512)
+    return hmac_hash.hexdigest()
+
+
+def _create_md5_hash(params, secret_key):
     m = hashlib.md5()
     od = collections.OrderedDict(sorted(params.items()))
     concatenated_data = "".join([str(x).strip() for x in od.values() if type(x) is not dict and type(x) is not list]) + secret_key

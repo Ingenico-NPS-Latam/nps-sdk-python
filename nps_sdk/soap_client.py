@@ -1,5 +1,5 @@
 from nps_sdk.configuration import Configuration
-from nps_sdk import utils, constants
+from nps_sdk import utils, constants, services
 from requests.exceptions import ReadTimeout, ConnectTimeout
 from nps_sdk.utils import RequestsTransport, LogPlugin
 from nps_sdk.errors import ApiException, LogException
@@ -55,8 +55,9 @@ class SoapClient(object):
             params = utils.add_extra_info(service, params)
             if Configuration.sanitize:
                 params = utils._check_sanitize(params=params, is_root=True)
-            if not params.get('psp_ClientSession'):
-                params = utils.add_secure_hash(params, Configuration.secret_key)
+            if service not in services.methods_without_secure_hash():
+                if not params.get('psp_ClientSession'):
+                    params = utils.add_secure_hash(params, Configuration.secret_key)
             response = getattr(self._client.service, service)(params)
             if not Configuration.as_obj:
                 response = utils.recursive_asdict(response)
