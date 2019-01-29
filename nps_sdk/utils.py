@@ -76,7 +76,9 @@ def _create_hmac_sha256_hash(params, secret_key):
     import hmac
     od = collections.OrderedDict(sorted(params.items()))
     concatenated_data = "".join([str(x).strip() for x in od.values() if type(x) is not dict and type(x) is not list])
-    hmac_hash = hmac.new(bytes(secret_key, 'UTF-8'), msg=bytes(concatenated_data, 'UTF-8'), digestmod=hashlib.sha256)
+    hmac_hash = hmac.new(str(secret_key).encode('utf-8'), msg=str(concatenated_data).encode('utf-8'), digestmod=hashlib.sha256)
+    # Does not work with Python 2.x
+    # hmac_hash = hmac.new(bytes(secret_key, 'UTF-8'), msg=bytes(concatenated_data, 'UTF-8'), digestmod=hashlib.sha256)
     return hmac_hash.hexdigest()
 
 
@@ -84,7 +86,9 @@ def _create_hmac_sha512_hash(params, secret_key):
     import hmac
     od = collections.OrderedDict(sorted(params.items()))
     concatenated_data = "".join([str(x).strip() for x in od.values() if type(x) is not dict and type(x) is not list])
-    hmac_hash = hmac.new(bytes(secret_key, 'UTF-8'), msg=bytes(concatenated_data, 'UTF-8'), digestmod=hashlib.sha512)
+    hmac_hash = hmac.new(str(secret_key).encode('utf-8'), msg=str(concatenated_data).encode('utf-8'), digestmod=hashlib.sha512)
+    # Does not work with Python 2.x
+    # hmac_hash = hmac.new(bytes(secret_key, 'UTF-8'), msg=bytes(concatenated_data, 'UTF-8'), digestmod=hashlib.sha512)
     return hmac_hash.hexdigest()
 
 
