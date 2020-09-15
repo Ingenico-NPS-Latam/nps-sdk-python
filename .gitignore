@@ -1,9 +1,12 @@
-.idea
+# IDEs and editors
+/.idea/
+/.vscode/
+
 dist/
+venv/*
 build
 npssdk.egg-info/
 npsx.egg-info/
-examples.py
 nps.egg-info
 .pypirc
 *.pyc
@@ -14,8 +17,3 @@ nps_sdk/*.pyc
 nps_sdk/__pycache__/*
 nps_sdk/wsdl/development.wsdl
 examples_builders.py
-test.py
-test/*
-cielo3_examples.py
-general_test.py
-venv/*
